@@ -1,0 +1,1121 @@
+/**
+ * Lexware MVP Admin Styles
+ *
+ * Central stylesheet for all admin interfaces.
+ * Uses WordPress admin color scheme for consistency.
+ *
+ * @package WC_Lexware_MVP
+ * @since 1.3.1
+ */
+
+/* ==========================================================================
+   CSS Custom Properties (Design Tokens)
+   Using WordPress admin colors for consistency
+   ========================================================================== */
+
+:root {
+    /* WordPress Admin Colors */
+    --lexware-primary: #2271b1;
+    --lexware-primary-hover: #135e96;
+    --lexware-success: #00a32a;
+    --lexware-success-light: #d4edda;
+    --lexware-success-dark: #155724;
+    --lexware-warning: #dba617;
+    --lexware-warning-light: #fff3cd;
+    --lexware-warning-dark: #856404;
+    --lexware-danger: #d63638;
+    --lexware-danger-light: #f8d7da;
+    --lexware-danger-dark: #721c24;
+    --lexware-info: #72aee6;
+    --lexware-info-light: #cce5ff;
+    --lexware-info-dark: #004085;
+
+    /* Neutrals */
+    --lexware-gray-100: #f6f7f7;
+    --lexware-gray-200: #dcdcde;
+    --lexware-gray-300: #c3c4c7;
+    --lexware-gray-400: #8c8f94;
+    --lexware-gray-500: #646970;
+    --lexware-gray-600: #3c434a;
+    --lexware-gray-700: #2c3338;
+
+    /* Borders */
+    --lexware-border-color: #c3c4c7;
+    --lexware-border-radius: 4px;
+
+    /* Spacing */
+    --lexware-spacing-xs: 4px;
+    --lexware-spacing-sm: 8px;
+    --lexware-spacing-md: 12px;
+    --lexware-spacing-lg: 16px;
+    --lexware-spacing-xl: 20px;
+
+    /* Typography */
+    --lexware-font-size-sm: 12px;
+    --lexware-font-size-base: 13px;
+    --lexware-font-size-lg: 14px;
+    --lexware-font-size-xl: 16px;
+    --lexware-font-size-2xl: 24px;
+}
+
+/* ==========================================================================
+   Statistics Dashboard
+   ========================================================================== */
+
+.lexware-stats,
+.lexware-stats-container {
+    display: flex;
+    gap: var(--lexware-spacing-xl);
+    margin: var(--lexware-spacing-xl) 0;
+    flex-wrap: wrap;
+}
+
+.lexware-stat-box {
+    background: #fff;
+    padding: 15px 20px;
+    border: 1px solid var(--lexware-border-color);
+    border-radius: var(--lexware-border-radius);
+    min-width: 120px;
+}
+
+.lexware-stat-box .stat-value,
+.lexware-stat-number {
+    font-size: var(--lexware-font-size-2xl);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.lexware-stat-box .stat-label,
+.lexware-stat-label {
+    display: block;
+    color: var(--lexware-gray-500);
+    font-size: var(--lexware-font-size-base);
+    margin-top: var(--lexware-spacing-xs);
+}
+
+.lexware-stat-box.stat-total .stat-value,
+.lexware-stat-total { color: var(--lexware-primary); }
+
+.lexware-stat-box.stat-synced .stat-value,
+.lexware-stat-success { color: var(--lexware-success); }
+
+.lexware-stat-box.stat-pending .stat-value,
+.lexware-stat-warning { color: var(--lexware-warning); }
+
+.lexware-stat-box.stat-failed .stat-value,
+.lexware-stat-danger { color: var(--lexware-danger); }
+
+/* ==========================================================================
+   Status Badges
+   ========================================================================== */
+
+.lexware-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: var(--lexware-font-size-sm);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Success States */
+.lexware-status.status-synced,
+.lexware-status.status-completed,
+.lexware-status-completed,
+.lexware-status-synced {
+    background: var(--lexware-success-light);
+    color: var(--lexware-success-dark);
+}
+
+/* Warning States */
+.lexware-status.status-pending,
+.lexware-status.status-pending-retry,
+.lexware-status.status-processing,
+.lexware-status-pending,
+.lexware-status-processing {
+    background: var(--lexware-warning-light);
+    color: var(--lexware-warning-dark);
+}
+
+/* Info States */
+.lexware-status.status-info,
+.lexware-status-info {
+    background: var(--lexware-info-light);
+    color: var(--lexware-info-dark);
+}
+
+/* Error States */
+.lexware-status.status-failed,
+.lexware-status.status-failed-auth,
+.lexware-status.status-failed-validation,
+.lexware-status-failed,
+.lexware-status-error {
+    background: var(--lexware-danger-light);
+    color: var(--lexware-danger-dark);
+}
+
+/* Status Badge (alternative naming) */
+.lexware-status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: var(--lexware-font-size-sm);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.lexware-status-badge.status-synced { background: var(--lexware-success-light); color: var(--lexware-success-dark); }
+.lexware-status-badge.status-pending,
+.lexware-status-badge.status-pending-retry { background: var(--lexware-warning-light); color: var(--lexware-warning-dark); }
+.lexware-status-badge.status-processing { background: var(--lexware-info-light); color: var(--lexware-info-dark); }
+.lexware-status-badge.status-failed,
+.lexware-status-badge.status-failed-auth,
+.lexware-status-badge.status-failed-validation { background: var(--lexware-danger-light); color: var(--lexware-danger-dark); }
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Muted text */
+.lexware-muted {
+    color: var(--lexware-gray-400);
+}
+
+/* Deleted hint */
+.lexware-deleted-hint {
+    color: var(--lexware-danger);
+    font-size: var(--lexware-font-size-sm);
+}
+
+/* ==========================================================================
+   Filter Form
+   ========================================================================== */
+
+.lexware-filters,
+.lexware-filter-form {
+    margin-bottom: var(--lexware-spacing-xl);
+}
+
+.lexware-filters,
+.lexware-filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.lexware-filters .filter-group,
+.lexware-filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.lexware-filters .filter-group label,
+.lexware-filter-label {
+    display: block;
+    margin-bottom: var(--lexware-spacing-xs);
+    font-weight: 500;
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-filters .filter-group input[type="text"],
+.lexware-filters .filter-group input[type="date"],
+.lexware-filters .filter-group select,
+.lexware-filter-group input[type="text"],
+.lexware-filter-group input[type="date"],
+.lexware-filter-group select {
+    min-width: 150px;
+}
+
+.lexware-filters .filter-actions,
+.lexware-filter-actions {
+    display: flex;
+    gap: var(--lexware-spacing-sm);
+    align-items: flex-end;
+}
+
+/* ==========================================================================
+   Action Buttons
+   ========================================================================== */
+
+.lexware-action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--lexware-spacing-xs);
+    padding: 6px 12px;
+    background: var(--lexware-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--lexware-border-radius);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: var(--lexware-font-size-base);
+    line-height: 1.4;
+    transition: background-color 0.2s ease;
+}
+
+.lexware-action-button:hover {
+    background: var(--lexware-primary-hover);
+    color: #fff;
+}
+
+.lexware-action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.lexware-action-button.button-secondary {
+    background: var(--lexware-gray-100);
+    color: var(--lexware-gray-700);
+    border: 1px solid var(--lexware-border-color);
+}
+
+.lexware-action-button.button-secondary:hover {
+    background: var(--lexware-gray-200);
+}
+
+.lexware-action-button.button-success {
+    background: var(--lexware-success);
+}
+
+.lexware-action-button.button-success:hover {
+    background: #008a20;
+}
+
+.lexware-action-button.button-danger {
+    background: var(--lexware-danger);
+}
+
+.lexware-action-button.button-danger:hover {
+    background: #b32d2e;
+}
+
+/* ==========================================================================
+   Meta Box Styles
+   ========================================================================== */
+
+.lexware-meta-box-status {
+    padding: var(--lexware-spacing-sm) var(--lexware-spacing-md);
+    border-radius: var(--lexware-border-radius);
+    margin-bottom: var(--lexware-spacing-md);
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-meta-box-status.lexware-status-completed {
+    background: var(--lexware-success-light);
+    color: var(--lexware-success-dark);
+    border: 1px solid #c3e6cb;
+}
+
+.lexware-meta-box-status.lexware-status-processing,
+.lexware-meta-box-status.lexware-status-pending {
+    background: var(--lexware-warning-light);
+    color: var(--lexware-warning-dark);
+    border: 1px solid #ffeeba;
+}
+
+.lexware-meta-box-status.lexware-status-failed {
+    background: var(--lexware-danger-light);
+    color: var(--lexware-danger-dark);
+    border: 1px solid #f5c6cb;
+}
+
+.lexware-meta-box-status.lexware-status-info {
+    background: var(--lexware-info-light);
+    color: var(--lexware-info-dark);
+    border: 1px solid #b8daff;
+}
+
+.lexware-meta-box-status.lexware-status-external {
+    background: #e1ecf4;
+    color: #0073aa;
+    border: 1px solid #b8d4e8;
+}
+
+/* Meta Box Info Rows */
+.lexware-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--lexware-spacing-sm) 0;
+    border-bottom: 1px solid var(--lexware-gray-200);
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-info-row:last-child {
+    border-bottom: none;
+}
+
+.lexware-info-label {
+    font-weight: 500;
+    color: var(--lexware-gray-600);
+}
+
+.lexware-info-value {
+    color: var(--lexware-gray-700);
+}
+
+.lexware-info-value code {
+    background: var(--lexware-gray-100);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: var(--lexware-font-size-sm);
+}
+
+/* Meta Box Sections */
+.lexware-section {
+    margin-top: var(--lexware-spacing-lg);
+    padding-top: var(--lexware-spacing-lg);
+    border-top: 1px solid var(--lexware-gray-200);
+}
+
+.lexware-section:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.lexware-section-title {
+    font-size: var(--lexware-font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--lexware-spacing-md);
+    color: var(--lexware-gray-700);
+}
+
+/* Meta Box Actions */
+.lexware-actions {
+    display: flex;
+    gap: var(--lexware-spacing-sm);
+    flex-wrap: wrap;
+    margin-top: var(--lexware-spacing-md);
+}
+
+/* Missing Documents Warning */
+.lexware-missing-warning {
+    padding: var(--lexware-spacing-sm);
+    background: var(--lexware-warning-light);
+    border: 1px solid #ffc107;
+    border-radius: var(--lexware-border-radius);
+    font-size: var(--lexware-font-size-sm);
+    color: var(--lexware-warning-dark);
+    margin-bottom: var(--lexware-spacing-sm);
+}
+
+/* ==========================================================================
+   Document Tables
+   ========================================================================== */
+
+.lexware-documents-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.lexware-documents-table th {
+    text-align: left;
+    font-weight: 600;
+}
+
+.lexware-documents-table td,
+.lexware-documents-table th {
+    padding: var(--lexware-spacing-sm) var(--lexware-spacing-md);
+    border-bottom: 1px solid var(--lexware-gray-200);
+}
+
+.lexware-documents-table tbody tr:hover {
+    background: var(--lexware-gray-100);
+}
+
+.lexware-documents-table .column-order {
+    width: 80px;
+}
+
+.lexware-documents-table .column-type {
+    width: 140px;
+}
+
+.lexware-documents-table .column-related {
+    width: 120px;
+}
+
+.lexware-documents-table .column-docnr,
+.lexware-documents-table .column-number {
+    width: 150px;
+}
+
+.lexware-documents-table .column-status {
+    width: 120px;
+}
+
+.lexware-documents-table .column-amount {
+    width: 100px;
+    text-align: right;
+}
+
+.lexware-documents-table .column-date,
+.lexware-documents-table .column-created,
+.lexware-documents-table .column-synced {
+    width: 150px;
+}
+
+.lexware-documents-table .column-actions {
+    width: 150px;
+}
+
+/* Deleted order indicator */
+.lexware-deleted-order {
+    color: var(--lexware-gray-400);
+}
+
+.lexware-deleted-order small {
+    color: var(--lexware-danger);
+    font-size: var(--lexware-font-size-sm);
+}
+
+/* Related documents badges */
+.lexware-related-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    cursor: help;
+    white-space: nowrap;
+}
+
+.lexware-related-badge.status-synced {
+    background: var(--lexware-success-light);
+    color: var(--lexware-success-dark);
+}
+
+.lexware-related-badge.status-pending,
+.lexware-related-badge.status-pending-retry,
+.lexware-related-badge.status-processing {
+    background: var(--lexware-warning-light);
+    color: var(--lexware-warning-dark);
+}
+
+.lexware-related-badge.status-failed,
+.lexware-related-badge.status-failed-auth,
+.lexware-related-badge.status-failed-validation {
+    background: var(--lexware-danger-light);
+    color: var(--lexware-danger-dark);
+}
+
+/* ==========================================================================
+   Tab Navigation & Missing Documents
+   ========================================================================== */
+
+.nav-tab-wrapper {
+    margin-bottom: var(--lexware-spacing-lg);
+}
+
+.lexware-tab-badge {
+    display: inline-block;
+    background: var(--lexware-warning);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.lexware-tab-badge-error {
+    display: inline-block;
+    background: var(--lexware-danger);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.lexware-missing-docs-info {
+    background: var(--lexware-gray-100);
+    border-left: 4px solid var(--lexware-primary);
+    padding: var(--lexware-spacing-md);
+    margin-bottom: var(--lexware-spacing-lg);
+}
+
+.lexware-missing-docs-info p {
+    margin: 0 0 var(--lexware-spacing-sm) 0;
+}
+
+.lexware-missing-docs-info p:last-child {
+    margin-bottom: 0;
+}
+
+.lexware-status-mapping {
+    font-size: var(--lexware-font-size-sm);
+}
+
+.lexware-mapping-item {
+    display: inline-block;
+    margin-right: var(--lexware-spacing-lg);
+    margin-top: var(--lexware-spacing-xs);
+}
+
+.lexware-mapping-item code {
+    background: var(--lexware-gray-200);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.lexware-bulk-actions {
+    margin-bottom: var(--lexware-spacing-md);
+}
+
+.lexware-missing-badge {
+    display: inline-block;
+    background: var(--lexware-warning-light);
+    color: var(--lexware-warning-dark);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: var(--lexware-font-size-sm);
+}
+
+.lexware-documents-table .column-customer {
+    width: 180px;
+}
+
+.lexware-documents-table .column-missing {
+    width: 160px;
+}
+
+/* ==========================================================================
+   Dashboard Widget
+   ========================================================================== */
+
+.lexware-dashboard-widget {
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-dashboard-widget h4 {
+    margin: 0 0 var(--lexware-spacing-sm) 0;
+    font-size: var(--lexware-font-size-lg);
+    font-weight: 600;
+    color: var(--lexware-gray-700);
+}
+
+.lexware-dashboard-widget .widget-section {
+    margin-bottom: var(--lexware-spacing-xl);
+}
+
+.lexware-dashboard-widget .widget-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lexware-dashboard-widget .widget-stats-table td {
+    padding: var(--lexware-spacing-xs) 0;
+}
+
+.lexware-dashboard-widget .widget-stats-table td:last-child {
+    text-align: right;
+    font-weight: 600;
+}
+
+.lexware-dashboard-widget .progress-bar {
+    height: 6px;
+    background: var(--lexware-gray-200);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: var(--lexware-spacing-xs);
+}
+
+.lexware-dashboard-widget .progress-bar-fill {
+    height: 100%;
+    background: var(--lexware-primary);
+    transition: width 0.3s ease;
+}
+
+.lexware-dashboard-widget .circuit-breaker {
+    padding: var(--lexware-spacing-sm);
+    background: var(--lexware-gray-100);
+    border-radius: var(--lexware-border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lexware-dashboard-widget .circuit-breaker.state-closed {
+    background: var(--lexware-success-light);
+}
+
+.lexware-dashboard-widget .circuit-breaker.state-open {
+    background: var(--lexware-danger-light);
+}
+
+.lexware-dashboard-widget .circuit-breaker.state-half-open {
+    background: var(--lexware-warning-light);
+}
+
+/* ==========================================================================
+   Status Page
+   ========================================================================== */
+
+.lexware-status-page .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--lexware-spacing-xl);
+    margin-bottom: var(--lexware-spacing-xl);
+}
+
+.lexware-status-page .status-card {
+    background: #fff;
+    border: 1px solid var(--lexware-border-color);
+    border-radius: var(--lexware-border-radius);
+    padding: var(--lexware-spacing-lg);
+}
+
+.lexware-status-page .status-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--lexware-spacing-md);
+    padding-bottom: var(--lexware-spacing-md);
+    border-bottom: 1px solid var(--lexware-gray-200);
+}
+
+.lexware-status-page .status-card-title {
+    font-size: var(--lexware-font-size-lg);
+    font-weight: 600;
+    margin: 0;
+}
+
+.lexware-status-page .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--lexware-spacing-xs);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: var(--lexware-font-size-sm);
+    font-weight: 500;
+}
+
+.lexware-status-page .status-indicator.status-ok {
+    background: var(--lexware-success-light);
+    color: var(--lexware-success-dark);
+}
+
+.lexware-status-page .status-indicator.status-warning {
+    background: var(--lexware-warning-light);
+    color: var(--lexware-warning-dark);
+}
+
+.lexware-status-page .status-indicator.status-error {
+    background: var(--lexware-danger-light);
+    color: var(--lexware-danger-dark);
+}
+
+/* ==========================================================================
+   Spinner / Loading
+   ========================================================================== */
+
+.lexware-spinner {
+    display: none;
+    margin-left: var(--lexware-spacing-sm);
+    vertical-align: middle;
+}
+
+.lexware-spinner.is-active {
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Error Messages
+   ========================================================================== */
+
+.lexware-error-message {
+    background: #fff;
+    border-left: 4px solid var(--lexware-danger);
+    padding: var(--lexware-spacing-sm);
+    margin-top: var(--lexware-spacing-sm);
+    font-size: var(--lexware-font-size-sm);
+    color: var(--lexware-danger-dark);
+}
+
+.lexware-error-message a {
+    color: var(--lexware-primary);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Not Synced Status
+   ========================================================================== */
+
+.lexware-status-not-synced {
+    background: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+.lexware-link {
+    color: var(--lexware-primary);
+    text-decoration: underline;
+}
+
+.lexware-link:hover {
+    color: var(--lexware-primary-hover);
+}
+
+/* ==========================================================================
+   Spacing Utilities
+   ========================================================================== */
+
+.lexware-notice-spaced {
+    margin-top: var(--lexware-spacing-xl);
+}
+
+.lexware-description-spaced {
+    margin-top: var(--lexware-spacing-sm);
+}
+
+/* ==========================================================================
+   Failed Documents Table
+   ========================================================================== */
+
+.lexware-documents-table .column-error,
+.wp-list-table .column-error {
+    max-width: 400px;
+}
+
+.lexware-error-text {
+    color: var(--lexware-danger-dark);
+    font-size: var(--lexware-font-size-sm);
+    cursor: help;
+}
+
+/* Check column in failed documents */
+.lexware-documents-table .check-column {
+    width: 40px;
+    padding: var(--lexware-spacing-sm);
+}
+
+/* ==========================================================================
+   Notices / Alerts
+   ========================================================================== */
+
+.lexware-notice {
+    padding: var(--lexware-spacing-md);
+    border-radius: var(--lexware-border-radius);
+    margin-bottom: var(--lexware-spacing-lg);
+}
+
+.lexware-notice.notice-success {
+    background: var(--lexware-success-light);
+    border-left: 4px solid var(--lexware-success);
+    color: var(--lexware-success-dark);
+}
+
+.lexware-notice.notice-warning {
+    background: var(--lexware-warning-light);
+    border-left: 4px solid var(--lexware-warning);
+    color: var(--lexware-warning-dark);
+}
+
+.lexware-notice.notice-error {
+    background: var(--lexware-danger-light);
+    border-left: 4px solid var(--lexware-danger);
+    color: var(--lexware-danger-dark);
+}
+
+.lexware-notice.notice-info {
+    background: var(--lexware-info-light);
+    border-left: 4px solid var(--lexware-info);
+    color: var(--lexware-info-dark);
+}
+
+/* Additional notice classes for import modal */
+.lexware-notice.lexware-notice-info {
+    background: var(--lexware-info-light);
+    border-left: 4px solid var(--lexware-info);
+    color: var(--lexware-info-dark);
+}
+
+.lexware-notice.lexware-notice-success {
+    background: var(--lexware-success-light);
+    border-left: 4px solid var(--lexware-success);
+    color: var(--lexware-success-dark);
+}
+
+.lexware-notice.lexware-notice-warning {
+    background: var(--lexware-warning-light);
+    border-left: 4px solid var(--lexware-warning);
+    color: var(--lexware-warning-dark);
+}
+
+.lexware-notice.lexware-notice-error {
+    background: var(--lexware-danger-light);
+    border-left: 4px solid var(--lexware-danger);
+    color: var(--lexware-danger-dark);
+}
+
+.lexware-notice ul {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.lexware-notice li {
+    margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   Export Button / Form
+   ========================================================================== */
+
+.lexware-export-section,
+.lexware-export-form {
+    margin-bottom: var(--lexware-spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--lexware-spacing-md);
+}
+
+.lexware-export-section .description,
+.lexware-export-hint {
+    color: var(--lexware-gray-500);
+    font-size: var(--lexware-font-size-base);
+    margin-left: var(--lexware-spacing-sm);
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media screen and (max-width: 782px) {
+    .lexware-stats,
+    .lexware-stats-container {
+        flex-direction: column;
+    }
+
+    .lexware-stat-box {
+        width: 100%;
+    }
+
+    .lexware-filters,
+    .lexware-filter-row {
+        flex-direction: column;
+    }
+
+    .lexware-filters .filter-group,
+    .lexware-filter-group {
+        width: 100%;
+    }
+
+    .lexware-filters .filter-group input,
+    .lexware-filters .filter-group select,
+    .lexware-filter-group input,
+    .lexware-filter-group select {
+        width: 100%;
+    }
+
+    .lexware-status-page .status-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lexware-documents-table {
+        font-size: var(--lexware-font-size-sm);
+    }
+
+    .lexware-documents-table .column-date,
+    .lexware-documents-table .column-created,
+    .lexware-documents-table .column-synced {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    .lexware-actions,
+    .lexware-filters,
+    .lexware-export-section,
+    .tablenav {
+        display: none !important;
+    }
+
+    .lexware-documents-table {
+        font-size: 10pt;
+    }
+}
+
+/* ==========================================================================
+   External/Manual Documents
+   ========================================================================== */
+
+/* External status badge */
+.lexware-status-badge.status-external,
+.lexware-related-badge.status-external {
+    background: #e1ecf4;
+    color: #0073aa;
+}
+
+/* Action buttons column */
+.column-actions-buttons {
+    white-space: nowrap;
+}
+
+.column-actions-buttons .button {
+    margin-right: 4px;
+}
+
+.column-actions-buttons .button:last-child {
+    margin-right: 0;
+}
+
+/* No documents message */
+.lexware-no-documents {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--lexware-gray-100);
+    border-radius: var(--lexware-border-radius);
+    margin-top: var(--lexware-spacing-lg);
+}
+
+.lexware-no-documents p {
+    margin: var(--lexware-spacing-md) 0 0 0;
+    font-size: var(--lexware-font-size-lg);
+    color: var(--lexware-gray-600);
+}
+
+/* ==========================================================================
+   External Document Modal
+   ========================================================================== */
+
+.lexware-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lexware-modal-content {
+    background: #fff;
+    border-radius: var(--lexware-border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.lexware-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--lexware-spacing-lg);
+    border-bottom: 1px solid var(--lexware-gray-200);
+    background: var(--lexware-gray-100);
+}
+
+.lexware-modal-header h2 {
+    margin: 0;
+    font-size: var(--lexware-font-size-xl);
+    font-weight: 600;
+    color: var(--lexware-gray-700);
+}
+
+.lexware-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--lexware-gray-400);
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.lexware-modal-close:hover {
+    color: var(--lexware-gray-700);
+}
+
+.lexware-modal-body {
+    padding: var(--lexware-spacing-lg);
+    overflow-y: auto;
+}
+
+.lexware-modal-subtitle {
+    margin: 0 0 var(--lexware-spacing-lg) 0;
+    padding: var(--lexware-spacing-sm) var(--lexware-spacing-md);
+    background: var(--lexware-gray-100);
+    border-radius: var(--lexware-border-radius);
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--lexware-spacing-sm);
+    padding: var(--lexware-spacing-lg);
+    border-top: 1px solid var(--lexware-gray-200);
+    background: var(--lexware-gray-100);
+}
+
+/* Form elements inside modal */
+.lexware-form-group {
+    margin-bottom: var(--lexware-spacing-lg);
+}
+
+.lexware-form-group:last-child {
+    margin-bottom: 0;
+}
+
+.lexware-form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: var(--lexware-spacing-xs);
+    color: var(--lexware-gray-700);
+}
+
+.lexware-form-group input[type="checkbox"] {
+    margin-right: var(--lexware-spacing-xs);
+}
+
+.lexware-form-fields {
+    padding: var(--lexware-spacing-md);
+    background: var(--lexware-gray-100);
+    border-radius: var(--lexware-border-radius);
+    margin-top: var(--lexware-spacing-md);
+}
+
+.lexware-form-group input[type="text"],
+.lexware-form-group textarea {
+    width: 100%;
+    padding: var(--lexware-spacing-sm);
+    border: 1px solid var(--lexware-border-color);
+    border-radius: var(--lexware-border-radius);
+    font-size: var(--lexware-font-size-base);
+}
+
+.lexware-form-group input[type="text"]:focus,
+.lexware-form-group textarea:focus {
+    border-color: var(--lexware-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+}
+
+.lexware-form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
