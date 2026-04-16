@@ -119,4 +119,4 @@ Copyright (c) 2025-2026 Abidin Alkilinc. Alle Rechte vorbehalten.
 
 ## Lizenz
 
-Dieses Plugin ist unter der GPL-2.0+ Lizenz veröffentlicht. Du darfst es frei verwenden, verändern und weiterverbreiten — unter den Bedingungen der GPL. Code und Architektur unterliegen dem Urheberrecht des Autors. Siehe [LICENSE](LICENSE) für Details.
+Dieses Plugin ist unter der GPL-2.0+ Lizenz veröffentlicht. Du darfst es frei verwenden und einsetzen. Wenn du Verbesserungen vornimmst, trage sie bitte per Pull Request zum Original-Projekt bei, anstatt einen eigenen Fork zu pflegen — so profitiert die gesamte Community. Siehe [LICENSE](LICENSE) für Details.
